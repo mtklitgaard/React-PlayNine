@@ -33,7 +33,7 @@ var AnswerFrame = React.createClass({
 		return (
 			<div id="answer-frame">
 				<div className="well">
-					..
+					{this.props.selectedNumbers}	
 				</div>
 			</div>
 		);
@@ -42,11 +42,12 @@ var AnswerFrame = React.createClass({
 
 var NumbersFrame = React.createClass({
 	render:function() {
-		var numbers = [];
+		var numbers = [], className, selectedNumbers=this.props.selectedNumbers;
 
 		for(var i = 0; i <= 9; i++) {
+			className = "number selected-" + (selectedNumbers.indexOf(i)>=0)
 			numbers.push(
-					<div className="number">{i}</div>
+					<div className={className}>{i}</div>
 				);
 		}
 
@@ -61,6 +62,9 @@ var NumbersFrame = React.createClass({
 });
 
 var Game = React.createClass({
+	getInitialState: function() {
+		return {selectedNumbers: [3,6]};
+	},
 	render: function () {
 		return (
 			<div id="game">
@@ -69,10 +73,10 @@ var Game = React.createClass({
 				<div className="clearfix">
 					<StarsFrame />
 					<ButtonFrame />
-					<AnswerFrame />
+					<AnswerFrame selectedNumbers={this.state.selectedNumbers} />
 				</div>
 
-				<NumbersFrame />
+				<NumbersFrame selectedNumbers={this.state.selectedNumbers}/>
 			</div>
 			);
 	}
