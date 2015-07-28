@@ -1,6 +1,6 @@
 var webpack = require('webpack');  
 module.exports = {
-  entry: ['./app/script.jsx'],
+  entry: ['./app/app.jsx'],
   output: {
     path: './build',
     filename: 'app.js'
