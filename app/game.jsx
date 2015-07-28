@@ -1,3 +1,13 @@
+var StarsFrame = require('./stars.jsx');
+
+var ButtonFrame = require('./button.jsx');
+
+var AnswerFrame = require('./answer.jsx');
+
+var NumbersFrame = require('./numbers.jsx');
+
+var DoneFrame = require('./done.jsx');
+
 var Game = React.createClass({
 	getInitialState: function() {
 		return {
@@ -115,3 +125,25 @@ var Game = React.createClass({
 			);
 	}
 });
+
+var possibleCombinationSum = function(arr, n) {
+  if (arr.indexOf(n) >= 0) { return true; }
+  if (arr[0] > n) { return false; }
+  if (arr[arr.length - 1] > n) {
+    arr.pop();
+    return possibleCombinationSum(arr, n);
+  }
+  var listSize = arr.length, combinationsCount = (1 << listSize)
+  for (var i = 1; i < combinationsCount ; i++ ) {
+    var combinationSum = 0;
+    for (var j=0 ; j < listSize ; j++) {
+      if (i & (1 << j)) { combinationSum += arr[j]; }
+    }
+    if (n === combinationSum) { return true; }
+  }
+  return false;
+};
+
+module.exports = Game;
+
+

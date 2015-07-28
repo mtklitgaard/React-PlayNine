@@ -24,4 +24,4 @@ var NumbersFrame = React.createClass({
 	}
 });
 
-module.export = NumbersFrame;
+module.exports = NumbersFrame;

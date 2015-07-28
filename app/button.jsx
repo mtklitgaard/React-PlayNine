@@ -41,4 +41,4 @@ var ButtonFrame = React.createClass({
 	}
 });
 
-module.export = ButtonFrame;
+module.exports = ButtonFrame;

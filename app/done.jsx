@@ -9,4 +9,4 @@ var DoneFrame = React.createClass({
 	}
 });
 
-module.export = DoneFrame;
+module.exports = DoneFrame;

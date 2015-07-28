@@ -53,271 +53,27 @@
 
 	'use strict';
 
-	var StarsFrame = __webpack_require__(4);
+	var Game = __webpack_require__(2);
 
-	var ButtonFrame = __webpack_require__(5);
-
-	var AnswerFrame = __webpack_require__(6);
-
-	var NumbersFrame = __webpack_require__(2);
-
-	var DoneFrame = __webpack_require__(7);
-
-	var Game = __webpack_require__(8);
+	console.log('do shit');
 
 	React.render(React.createElement(Game, null), document.getElementById('container'));
-
-	var possibleCombinationSum = function possibleCombinationSum(_x, _x2) {
-	  var _again = true;
-
-	  _function: while (_again) {
-	    var arr = _x,
-	        n = _x2;
-	    listSize = combinationsCount = i = combinationSum = j = undefined;
-	    _again = false;
-
-	    if (arr.indexOf(n) >= 0) {
-	      return true;
-	    }
-	    if (arr[0] > n) {
-	      return false;
-	    }
-	    if (arr[arr.length - 1] > n) {
-	      arr.pop();
-	      _x = arr;
-	      _x2 = n;
-	      _again = true;
-	      continue _function;
-	    }
-	    var listSize = arr.length,
-	        combinationsCount = 1 << listSize;
-	    for (var i = 1; i < combinationsCount; i++) {
-	      var combinationSum = 0;
-	      for (var j = 0; j < listSize; j++) {
-	        if (i & 1 << j) {
-	          combinationSum += arr[j];
-	        }
-	      }
-	      if (n === combinationSum) {
-	        return true;
-	      }
-	    }
-	    return false;
-	  }
-	};
 
 /***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
-
-	var NumbersFrame = React.createClass({
-		displayName: "NumbersFrame",
-
-		render: function render() {
-			var numbers = [];
-			var className;
-			var selectedNumbers = this.props.selectedNumbers;
-			var usedNumbers = this.props.usedNumbers;
-			var selectNumber = this.props.selectNumber;
-
-			for (var i = 1; i <= 9; i++) {
-				className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
-				className += " used-" + (usedNumbers.indexOf(i) >= 0);
-				numbers.push(React.createElement(
-					"div",
-					{ className: className, onClick: selectNumber.bind(null, i) },
-					i
-				));
-			}
-
-			return React.createElement(
-				"div",
-				{ id: "numbers-frame" },
-				React.createElement(
-					"div",
-					{ className: "well" },
-					numbers
-				)
-			);
-		}
-	});
-
-	module["export"] = NumbersFrame;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
-
-	var StarsFrame = React.createClass({
-		displayName: "StarsFrame",
-
-		render: function render() {
-			var stars = [];
-			for (var i = 0; i < this.props.numberOfStars; i++) {
-				stars.push(React.createElement("span", { className: "glyphicon glyphicon-star" }));
-			}
-			return React.createElement(
-				"div",
-				{ id: "stars-frame" },
-				React.createElement(
-					"div",
-					{ className: "well" },
-					stars
-				)
-			);
-		}
-	});
-
-	module["export"] = StarsFrame;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
-
-	var ButtonFrame = React.createClass({
-		displayName: "ButtonFrame",
-
-		render: function render() {
-			var disabled;
-			var correct = this.props.correct;
-			var button;
-			switch (correct) {
-				case true:
-					button = React.createElement(
-						"button",
-						{ className: "btn btn-success btn-lg", onClick: this.props.acceptAnswer },
-						React.createElement("span", { className: "glyphicon glyphicon-ok" })
-					);
-					break;
-				case false:
-					button = React.createElement(
-						"button",
-						{ className: "btn btn-danger btn-lg" },
-						React.createElement("span", { className: "glyphicon glyphicon-remove" })
-					);
-					break;
-				default:
-					disabled = this.props.selectedNumbers.length === 0;
-					button = React.createElement(
-						"button",
-						{ className: "btn btn-primary btn-lg", disabled: disabled, onClick: this.props.checkAnswer },
-						"="
-					);
-			}
-
-			return React.createElement(
-				"div",
-				{ id: "button-frame" },
-				button,
-				React.createElement("br", null),
-				React.createElement("br", null),
-				React.createElement(
-					"button",
-					{ className: "btn btn-warning btn-xs", onClick: this.props.redraw, disabled: this.props.redraws === 0 },
-					React.createElement("span", { className: "glyphicon glyphicon-refresh" }),
-					" ",
-					this.props.redraws
-				)
-			);
-		}
-	});
-
-	module["export"] = ButtonFrame;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
-
-	var AnswerFrame = React.createClass({
-		displayName: "AnswerFrame",
-
-		render: function render() {
-			var props = this.props;
-			var selectedNumbers = props.selectedNumbers.map(function (i) {
-				return React.createElement(
-					"span",
-					{ onClick: props.unselectNumber.bind(null, i) },
-					i
-				);
-			});
-
-			return React.createElement(
-				"div",
-				{ id: "answer-frame" },
-				React.createElement(
-					"div",
-					{ className: "well" },
-					selectedNumbers
-				)
-			);
-		}
-	});
-
-	module["export"] = AnswerFrame;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
-
-	var DoneFrame = React.createClass({
-		displayName: "DoneFrame",
-
-		render: function render() {
-			return React.createElement(
-				"div",
-				{ className: "well text-center" },
-				React.createElement(
-					"h2",
-					null,
-					this.props.doneStatus
-				),
-				React.createElement(
-					"button",
-					{ className: "btn btn-default", onClick: this.props.resetGame },
-					"Play Again"
-				)
-			);
-		}
-	});
-
-	module["export"] = DoneFrame;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
 	'use strict';
+
+	var StarsFrame = __webpack_require__(3);
+
+	var ButtonFrame = __webpack_require__(4);
+
+	var AnswerFrame = __webpack_require__(5);
+
+	var NumbersFrame = __webpack_require__(6);
+
+	var DoneFrame = __webpack_require__(7);
 
 	var Game = React.createClass({
 		displayName: 'Game',
@@ -443,5 +199,233 @@
 		}
 	});
 
+	var possibleCombinationSum = function possibleCombinationSum(_x, _x2) {
+		var _again = true;
+
+		_function: while (_again) {
+			var arr = _x,
+			    n = _x2;
+			listSize = combinationsCount = i = combinationSum = j = undefined;
+			_again = false;
+
+			if (arr.indexOf(n) >= 0) {
+				return true;
+			}
+			if (arr[0] > n) {
+				return false;
+			}
+			if (arr[arr.length - 1] > n) {
+				arr.pop();
+				_x = arr;
+				_x2 = n;
+				_again = true;
+				continue _function;
+			}
+			var listSize = arr.length,
+			    combinationsCount = 1 << listSize;
+			for (var i = 1; i < combinationsCount; i++) {
+				var combinationSum = 0;
+				for (var j = 0; j < listSize; j++) {
+					if (i & 1 << j) {
+						combinationSum += arr[j];
+					}
+				}
+				if (n === combinationSum) {
+					return true;
+				}
+			}
+			return false;
+		}
+	};
+
+	module.exports = Game;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var StarsFrame = React.createClass({
+		displayName: "StarsFrame",
+
+		render: function render() {
+			var stars = [];
+			for (var i = 0; i < this.props.numberOfStars; i++) {
+				stars.push(React.createElement("span", { className: "glyphicon glyphicon-star" }));
+			}
+			return React.createElement(
+				"div",
+				{ id: "stars-frame" },
+				React.createElement(
+					"div",
+					{ className: "well" },
+					stars
+				)
+			);
+		}
+	});
+
+	module.exports = StarsFrame;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var ButtonFrame = React.createClass({
+		displayName: "ButtonFrame",
+
+		render: function render() {
+			var disabled;
+			var correct = this.props.correct;
+			var button;
+			switch (correct) {
+				case true:
+					button = React.createElement(
+						"button",
+						{ className: "btn btn-success btn-lg", onClick: this.props.acceptAnswer },
+						React.createElement("span", { className: "glyphicon glyphicon-ok" })
+					);
+					break;
+				case false:
+					button = React.createElement(
+						"button",
+						{ className: "btn btn-danger btn-lg" },
+						React.createElement("span", { className: "glyphicon glyphicon-remove" })
+					);
+					break;
+				default:
+					disabled = this.props.selectedNumbers.length === 0;
+					button = React.createElement(
+						"button",
+						{ className: "btn btn-primary btn-lg", disabled: disabled, onClick: this.props.checkAnswer },
+						"="
+					);
+			}
+
+			return React.createElement(
+				"div",
+				{ id: "button-frame" },
+				button,
+				React.createElement("br", null),
+				React.createElement("br", null),
+				React.createElement(
+					"button",
+					{ className: "btn btn-warning btn-xs", onClick: this.props.redraw, disabled: this.props.redraws === 0 },
+					React.createElement("span", { className: "glyphicon glyphicon-refresh" }),
+					" ",
+					this.props.redraws
+				)
+			);
+		}
+	});
+
+	module.exports = ButtonFrame;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var AnswerFrame = React.createClass({
+		displayName: "AnswerFrame",
+
+		render: function render() {
+			var props = this.props;
+			var selectedNumbers = props.selectedNumbers.map(function (i) {
+				return React.createElement(
+					"span",
+					{ onClick: props.unselectNumber.bind(null, i) },
+					i
+				);
+			});
+
+			return React.createElement(
+				"div",
+				{ id: "answer-frame" },
+				React.createElement(
+					"div",
+					{ className: "well" },
+					selectedNumbers
+				)
+			);
+		}
+	});
+
+	module.exports = AnswerFrame;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var NumbersFrame = React.createClass({
+		displayName: "NumbersFrame",
+
+		render: function render() {
+			var numbers = [];
+			var className;
+			var selectedNumbers = this.props.selectedNumbers;
+			var usedNumbers = this.props.usedNumbers;
+			var selectNumber = this.props.selectNumber;
+
+			for (var i = 1; i <= 9; i++) {
+				className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
+				className += " used-" + (usedNumbers.indexOf(i) >= 0);
+				numbers.push(React.createElement(
+					"div",
+					{ className: className, onClick: selectNumber.bind(null, i) },
+					i
+				));
+			}
+
+			return React.createElement(
+				"div",
+				{ id: "numbers-frame" },
+				React.createElement(
+					"div",
+					{ className: "well" },
+					numbers
+				)
+			);
+		}
+	});
+
+	module.exports = NumbersFrame;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var DoneFrame = React.createClass({
+		displayName: "DoneFrame",
+
+		render: function render() {
+			return React.createElement(
+				"div",
+				{ className: "well text-center" },
+				React.createElement(
+					"h2",
+					null,
+					this.props.doneStatus
+				),
+				React.createElement(
+					"button",
+					{ className: "btn btn-default", onClick: this.props.resetGame },
+					"Play Again"
+				)
+			);
+		}
+	});
+
+	module.exports = DoneFrame;
+
 /***/ }
 /******/ ]);
+

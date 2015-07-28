@@ -16,4 +16,4 @@ var StarsFrame = React.createClass({
 	}
 });
 
-module.export = StarsFrame;
+module.exports = StarsFrame;

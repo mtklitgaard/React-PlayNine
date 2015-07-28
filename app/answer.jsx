@@ -19,4 +19,4 @@ var AnswerFrame = React.createClass({
 	}
 });
 
-module.export = AnswerFrame;
+module.exports = AnswerFrame;
