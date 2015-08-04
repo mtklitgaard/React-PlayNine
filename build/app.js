@@ -54,8 +54,7 @@
 	'use strict';
 
 	var Game = __webpack_require__(2);
-
-	console.log('do shit');
+	__webpack_require__(8);
 
 	React.render(React.createElement(Game, null), document.getElementById('container'));
 
@@ -426,6 +425,11 @@
 
 	module.exports = DoneFrame;
 
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
 /***/ }
 /******/ ]);
-
