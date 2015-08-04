@@ -54,7 +54,7 @@
 	'use strict';
 
 	var Game = __webpack_require__(2);
-	__webpack_require__(8);
+	__webpack_require__(9);
 
 	React.render(React.createElement(Game, null), document.getElementById('container'));
 
@@ -64,15 +64,17 @@
 
 	'use strict';
 
-	var StarsFrame = __webpack_require__(3);
+	var StarsFrame = __webpack_require__(4);
 
-	var ButtonFrame = __webpack_require__(4);
+	var ButtonFrame = __webpack_require__(5);
 
-	var AnswerFrame = __webpack_require__(5);
+	var AnswerFrame = __webpack_require__(6);
 
-	var NumbersFrame = __webpack_require__(6);
+	var NumbersFrame = __webpack_require__(3);
 
 	var DoneFrame = __webpack_require__(7);
+
+	var PossibleCominationSum = __webpack_require__(8);
 
 	var Game = React.createClass({
 		displayName: 'Game',
@@ -103,7 +105,7 @@
 				}
 			}
 
-			return possibleCombinationSum(possibleNumbers, numberOfStars);
+			return PossibleCominationSum(possibleNumbers, numberOfStars);
 		},
 		updateDoneStatus: function updateDoneStatus() {
 			if (this.state.usedNumbers.length === 9) {
@@ -198,49 +200,50 @@
 		}
 	});
 
-	var possibleCombinationSum = function possibleCombinationSum(_x, _x2) {
-		var _again = true;
-
-		_function: while (_again) {
-			var arr = _x,
-			    n = _x2;
-			listSize = combinationsCount = i = combinationSum = j = undefined;
-			_again = false;
-
-			if (arr.indexOf(n) >= 0) {
-				return true;
-			}
-			if (arr[0] > n) {
-				return false;
-			}
-			if (arr[arr.length - 1] > n) {
-				arr.pop();
-				_x = arr;
-				_x2 = n;
-				_again = true;
-				continue _function;
-			}
-			var listSize = arr.length,
-			    combinationsCount = 1 << listSize;
-			for (var i = 1; i < combinationsCount; i++) {
-				var combinationSum = 0;
-				for (var j = 0; j < listSize; j++) {
-					if (i & 1 << j) {
-						combinationSum += arr[j];
-					}
-				}
-				if (n === combinationSum) {
-					return true;
-				}
-			}
-			return false;
-		}
-	};
-
 	module.exports = Game;
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var NumbersFrame = React.createClass({
+		displayName: "NumbersFrame",
+
+		render: function render() {
+			var numbers = [];
+			var className;
+			var selectedNumbers = this.props.selectedNumbers;
+			var usedNumbers = this.props.usedNumbers;
+			var selectNumber = this.props.selectNumber;
+
+			for (var i = 1; i <= 9; i++) {
+				className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
+				className += " used-" + (usedNumbers.indexOf(i) >= 0);
+				numbers.push(React.createElement(
+					"div",
+					{ className: className, onClick: selectNumber.bind(null, i) },
+					i
+				));
+			}
+
+			return React.createElement(
+				"div",
+				{ id: "numbers-frame" },
+				React.createElement(
+					"div",
+					{ className: "well" },
+					numbers
+				)
+			);
+		}
+	});
+
+	module.exports = NumbersFrame;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -268,7 +271,7 @@
 	module.exports = StarsFrame;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -324,7 +327,7 @@
 	module.exports = ButtonFrame;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -357,46 +360,6 @@
 	module.exports = AnswerFrame;
 
 /***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var NumbersFrame = React.createClass({
-		displayName: "NumbersFrame",
-
-		render: function render() {
-			var numbers = [];
-			var className;
-			var selectedNumbers = this.props.selectedNumbers;
-			var usedNumbers = this.props.usedNumbers;
-			var selectNumber = this.props.selectNumber;
-
-			for (var i = 1; i <= 9; i++) {
-				className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
-				className += " used-" + (usedNumbers.indexOf(i) >= 0);
-				numbers.push(React.createElement(
-					"div",
-					{ className: className, onClick: selectNumber.bind(null, i) },
-					i
-				));
-			}
-
-			return React.createElement(
-				"div",
-				{ id: "numbers-frame" },
-				React.createElement(
-					"div",
-					{ className: "well" },
-					numbers
-				)
-			);
-		}
-	});
-
-	module.exports = NumbersFrame;
-
-/***/ },
 /* 7 */
 /***/ function(module, exports) {
 
@@ -427,6 +390,53 @@
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var PossibleCombinationSum = function PossibleCombinationSum(_x, _x2) {
+	  var _again = true;
+
+	  _function: while (_again) {
+	    var arr = _x,
+	        n = _x2;
+	    listSize = combinationsCount = i = combinationSum = j = undefined;
+	    _again = false;
+
+	    if (arr.indexOf(n) >= 0) {
+	      return true;
+	    }
+	    if (arr[0] > n) {
+	      return false;
+	    }
+	    if (arr[arr.length - 1] > n) {
+	      arr.pop();
+	      _x = arr;
+	      _x2 = n;
+	      _again = true;
+	      continue _function;
+	    }
+	    var listSize = arr.length,
+	        combinationsCount = 1 << listSize;
+	    for (var i = 1; i < combinationsCount; i++) {
+	      var combinationSum = 0;
+	      for (var j = 0; j < listSize; j++) {
+	        if (i & 1 << j) {
+	          combinationSum += arr[j];
+	        }
+	      }
+	      if (n === combinationSum) {
+	        return true;
+	      }
+	    }
+	    return false;
+	  }
+	};
+
+	module.exports = PossibleCombinationSum;
+
+/***/ },
+/* 9 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
