@@ -54,7 +54,7 @@
 	'use strict';
 
 	var Game = __webpack_require__(2);
-	__webpack_require__(9);
+	__webpack_require__(10);
 
 	React.render(React.createElement(Game, null), document.getElementById('container'));
 
@@ -64,17 +64,19 @@
 
 	'use strict';
 
-	var StarsFrame = __webpack_require__(4);
+	var StarsFrame = __webpack_require__(3);
 
-	var ButtonFrame = __webpack_require__(5);
+	var ButtonFrame = __webpack_require__(4);
 
-	var AnswerFrame = __webpack_require__(6);
+	var AnswerFrame = __webpack_require__(5);
 
-	var NumbersFrame = __webpack_require__(3);
+	var NumbersFrame = __webpack_require__(6);
 
 	var DoneFrame = __webpack_require__(7);
 
-	var PossibleCominationSum = __webpack_require__(8);
+	var ScoreBoard = __webpack_require__(8);
+
+	var PossibleCominationSum = __webpack_require__(9);
 
 	var Game = React.createClass({
 		displayName: 'Game',
@@ -195,7 +197,9 @@
 						acceptAnswer: this.acceptAnswer, redraw: this.redraw, redraws: redraws }),
 					React.createElement(AnswerFrame, { selectedNumbers: selectedNumbers, unselectNumber: this.unselectNumber })
 				),
-				buttonFrame
+				buttonFrame,
+				React.createElement('br', null),
+				React.createElement(ScoreBoard, null)
 			);
 		}
 	});
@@ -204,46 +208,6 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var NumbersFrame = React.createClass({
-		displayName: "NumbersFrame",
-
-		render: function render() {
-			var numbers = [];
-			var className;
-			var selectedNumbers = this.props.selectedNumbers;
-			var usedNumbers = this.props.usedNumbers;
-			var selectNumber = this.props.selectNumber;
-
-			for (var i = 1; i <= 9; i++) {
-				className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
-				className += " used-" + (usedNumbers.indexOf(i) >= 0);
-				numbers.push(React.createElement(
-					"div",
-					{ className: className, onClick: selectNumber.bind(null, i) },
-					i
-				));
-			}
-
-			return React.createElement(
-				"div",
-				{ id: "numbers-frame" },
-				React.createElement(
-					"div",
-					{ className: "well" },
-					numbers
-				)
-			);
-		}
-	});
-
-	module.exports = NumbersFrame;
-
-/***/ },
-/* 4 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -271,7 +235,7 @@
 	module.exports = StarsFrame;
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -327,7 +291,7 @@
 	module.exports = ButtonFrame;
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -360,6 +324,46 @@
 	module.exports = AnswerFrame;
 
 /***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var NumbersFrame = React.createClass({
+		displayName: "NumbersFrame",
+
+		render: function render() {
+			var numbers = [];
+			var className;
+			var selectedNumbers = this.props.selectedNumbers;
+			var usedNumbers = this.props.usedNumbers;
+			var selectNumber = this.props.selectNumber;
+
+			for (var i = 1; i <= 9; i++) {
+				className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
+				className += " used-" + (usedNumbers.indexOf(i) >= 0);
+				numbers.push(React.createElement(
+					"div",
+					{ className: className, onClick: selectNumber.bind(null, i) },
+					i
+				));
+			}
+
+			return React.createElement(
+				"div",
+				{ id: "numbers-frame" },
+				React.createElement(
+					"div",
+					{ className: "well" },
+					numbers
+				)
+			);
+		}
+	});
+
+	module.exports = NumbersFrame;
+
+/***/ },
 /* 7 */
 /***/ function(module, exports) {
 
@@ -390,6 +394,30 @@
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var ScoreBoard = React.createClass({
+		displayName: "ScoreBoard",
+
+		render: function render() {
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"h2",
+					null,
+					"Total Score"
+				)
+			);
+		}
+	});
+
+	module.exports = ScoreBoard;
+
+/***/ },
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -436,7 +464,7 @@
 	module.exports = PossibleCombinationSum;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

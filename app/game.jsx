@@ -8,6 +8,8 @@ var NumbersFrame = require('./numbers.jsx');
 
 var DoneFrame = require('./done.jsx');
 
+var ScoreBoard = require('./scoreBoard.jsx');
+
 var PossibleCominationSum = require('./possibleCombinationSum.js');
 
 var Game = React.createClass({
@@ -120,9 +122,12 @@ var Game = React.createClass({
 					<ButtonFrame selectedNumbers={selectedNumbers} correct={correct} checkAnswer={this.checkAnswer} 
 						acceptAnswer={this.acceptAnswer} redraw={this.redraw} redraws={redraws}/>
 					<AnswerFrame selectedNumbers={selectedNumbers} unselectNumber={this.unselectNumber} />
+					
 				</div>
 
 				{buttonFrame}
+				<br />
+				<ScoreBoard />
 			</div>
 			);
 	}
