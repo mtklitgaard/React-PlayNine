@@ -1,8 +1,11 @@
 var ScoreBoard = React.createClass({
 	render: function() {
 		return (
-				<div>
-					<h2>Total Score</h2>
+				<div id="scoreboard-frame">
+					<div className="well">
+						<h3>Your Highest Score</h3>
+						<h4>Uno Million</h4>
+					</div>
 				</div>
 			);
 	}

@@ -15,6 +15,16 @@
 #stars-frame .well, #answer-frame .well {
   height: 200px; }
 
+#scoreboard-frame .well, #topscores-frame .well {
+  width: 45%;
+  height: 200px; }
+
+#scoreboard-frame .well {
+  float: left; }
+
+#topscores-frame .well {
+  float: right; }
+
 #numbers-frame .number, #answer-frame .well span {
   display: inline-block;
   margin: 0.5em;

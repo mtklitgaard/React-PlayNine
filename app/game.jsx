@@ -10,6 +10,8 @@ var DoneFrame = require('./done.jsx');
 
 var ScoreBoard = require('./scoreBoard.jsx');
 
+var TopScores = require('./topScores.jsx');
+
 var PossibleCominationSum = require('./possibleCombinationSum.js');
 
 var Game = React.createClass({
@@ -127,7 +129,11 @@ var Game = React.createClass({
 
 				{buttonFrame}
 				<br />
-				<ScoreBoard />
+				<hr />
+				<div className="clearfix">
+					<ScoreBoard />
+					<TopScores />
+				</div>
 			</div>
 			);
 	}
