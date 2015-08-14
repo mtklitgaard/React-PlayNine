@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "94cde557ea5aecc29535"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5e8a8674319edea4cb0e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -558,7 +558,7 @@
 	'use strict';
 
 	var Game = __webpack_require__(2);
-	__webpack_require__(10);
+	__webpack_require__(11);
 
 	React.render(React.createElement(Game, null), document.getElementById('container'));
 
@@ -568,21 +568,21 @@
 
 	'use strict';
 
-	var StarsFrame = __webpack_require__(3);
+	var StarsFrame = __webpack_require__(4);
 
-	var ButtonFrame = __webpack_require__(4);
+	var ButtonFrame = __webpack_require__(5);
 
-	var AnswerFrame = __webpack_require__(5);
+	var AnswerFrame = __webpack_require__(6);
 
-	var NumbersFrame = __webpack_require__(6);
+	var NumbersFrame = __webpack_require__(7);
 
-	var DoneFrame = __webpack_require__(7);
+	var DoneFrame = __webpack_require__(3);
 
 	var ScoreBoard = __webpack_require__(8);
 
-	var TopScores = __webpack_require__(14);
+	var TopScores = __webpack_require__(9);
 
-	var PossibleCominationSum = __webpack_require__(9);
+	var PossibleCominationSum = __webpack_require__(10);
 
 	var Game = React.createClass({
 		displayName: 'Game',
@@ -594,7 +594,8 @@
 				usedNumbers: [],
 				redraws: 5,
 				correct: null,
-				doneStatus: null };
+				doneStatus: null,
+				score: 0 };
 		},
 		resetGame: function resetGame() {
 			this.replaceState(this.getInitialState());
@@ -666,7 +667,8 @@
 				selectedNumbers: [],
 				usedNumbers: usedNumbers,
 				correct: null,
-				numberOfStars: this.randomNumber()
+				numberOfStars: this.randomNumber(),
+				score: this.state.score + 10
 			}, function () {
 				this.updateDoneStatus();
 			});
@@ -678,6 +680,7 @@
 			var correct = this.state.correct;
 			var redraws = this.state.redraws;
 			var doneStatus = this.state.doneStatus;
+			var score = this.state.score;
 			var buttonFrame;
 
 			if (doneStatus) {
@@ -709,7 +712,7 @@
 				React.createElement(
 					'div',
 					{ className: "clearfix" },
-					React.createElement(ScoreBoard, null),
+					React.createElement(ScoreBoard, { score: score }),
 					React.createElement(TopScores, null)
 				)
 			);
@@ -720,6 +723,35 @@
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var DoneFrame = React.createClass({
+		displayName: "DoneFrame",
+
+		render: function render() {
+			return React.createElement(
+				"div",
+				{ className: "well text-center" },
+				React.createElement(
+					"h2",
+					null,
+					this.props.doneStatus
+				),
+				React.createElement(
+					"button",
+					{ className: "btn btn-default", onClick: this.props.resetGame },
+					"Play Again"
+				)
+			);
+		}
+	});
+
+	module.exports = DoneFrame;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -747,7 +779,7 @@
 	module.exports = StarsFrame;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -803,7 +835,7 @@
 	module.exports = ButtonFrame;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -836,7 +868,7 @@
 	module.exports = AnswerFrame;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -876,35 +908,6 @@
 	module.exports = NumbersFrame;
 
 /***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var DoneFrame = React.createClass({
-		displayName: "DoneFrame",
-
-		render: function render() {
-			return React.createElement(
-				"div",
-				{ className: "well text-center" },
-				React.createElement(
-					"h2",
-					null,
-					this.props.doneStatus
-				),
-				React.createElement(
-					"button",
-					{ className: "btn btn-default", onClick: this.props.resetGame },
-					"Play Again"
-				)
-			);
-		}
-	});
-
-	module.exports = DoneFrame;
-
-/***/ },
 /* 8 */
 /***/ function(module, exports) {
 
@@ -928,7 +931,7 @@
 					React.createElement(
 						"h4",
 						null,
-						"Uno Million"
+						this.props.score
 					)
 				)
 			);
@@ -939,6 +942,53 @@
 
 /***/ },
 /* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var TopScores = React.createClass({
+		displayName: "TopScores",
+
+		render: function render() {
+			return React.createElement(
+				"div",
+				{ id: "topscores-frame" },
+				React.createElement(
+					"div",
+					{ className: "well" },
+					React.createElement(
+						"h3",
+						null,
+						"Top Scores"
+					),
+					React.createElement(
+						"ol",
+						null,
+						React.createElement(
+							"li",
+							null,
+							"1. Test - 10000"
+						),
+						React.createElement(
+							"li",
+							null,
+							"2. Test2 - 9999"
+						),
+						React.createElement(
+							"li",
+							null,
+							"3. Test3 - 888"
+						)
+					)
+				)
+			);
+		}
+	});
+
+	module.exports = TopScores;
+
+/***/ },
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -985,60 +1035,10 @@
 	module.exports = PossibleCombinationSum;
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	var TopScores = React.createClass({
-		displayName: "TopScores",
-
-		render: function render() {
-			return React.createElement(
-				"div",
-				{ id: "topscores-frame" },
-				React.createElement(
-					"div",
-					{ className: "well" },
-					React.createElement(
-						"h3",
-						null,
-						"Top Scores"
-					),
-					React.createElement(
-						"ol",
-						null,
-						React.createElement(
-							"li",
-							null,
-							"1. Test - 10000"
-						),
-						React.createElement(
-							"li",
-							null,
-							"2. Test2 - 9999"
-						),
-						React.createElement(
-							"li",
-							null,
-							"3. Test3 - 888"
-						)
-					)
-				)
-			);
-		}
-	});
-
-	module.exports = TopScores;
 
 /***/ }
 /******/ ]);
