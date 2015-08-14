@@ -23,10 +23,23 @@ var Game = React.createClass({
 			redraws: 5,
 			correct: null,
 			doneStatus: null,
-			score: 0 };
+			score: 0,
+			highScore: 0 };
+	},
+	getResetState: function() {
+		var highScore = this.state.highScore;
+		return {
+			numberOfStars: this.randomNumber(),
+			selectedNumbers: [],
+			usedNumbers: [],
+			redraws: 5,
+			correct: null,
+			doneStatus: null,
+			score: 0,
+			highScore: highScore};
 	},
 	resetGame: function() {
-		this.replaceState(this.getInitialState())
+		this.replaceState(this.getResetState())
 	},
 	randomNumber: function() {
 		return Math.floor(Math.random()*9) + 1;
@@ -53,6 +66,11 @@ var Game = React.createClass({
 		if(this.state.redraws === 0 && !this.possibleSolution()){
 			this.setState({doneStatus: 'You lose. Game over'});
 		}
+
+		if(this.state.score > this.state.highScore) {
+			this.setState({highScore: this.state.score});
+		}
+
 	},
 	selectNumber: function(clickedNumber) {
 		if(this.state.selectedNumbers.indexOf(clickedNumber) < 0) {
@@ -110,6 +128,7 @@ var Game = React.createClass({
 		var redraws = this.state.redraws;
 		var doneStatus = this.state.doneStatus;
 		var score = this.state.score;
+		var highScore = this.state.highScore;
 		var buttonFrame;
 
 		if(doneStatus) {
@@ -134,7 +153,7 @@ var Game = React.createClass({
 				<br />
 				<hr />
 				<div className="clearfix">
-					<ScoreBoard score= {score} />
+					<ScoreBoard score= {score} highScore = {highScore} />
 					<TopScores />
 				</div>
 			</div>

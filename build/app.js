@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5e8a8674319edea4cb0e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e04302f006ae2c9c7237"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -595,10 +595,23 @@
 				redraws: 5,
 				correct: null,
 				doneStatus: null,
-				score: 0 };
+				score: 0,
+				highScore: 0 };
+		},
+		getResetState: function getResetState() {
+			var highScore = this.state.highScore;
+			return {
+				numberOfStars: this.randomNumber(),
+				selectedNumbers: [],
+				usedNumbers: [],
+				redraws: 5,
+				correct: null,
+				doneStatus: null,
+				score: 0,
+				highScore: highScore };
 		},
 		resetGame: function resetGame() {
-			this.replaceState(this.getInitialState());
+			this.replaceState(this.getResetState());
 		},
 		randomNumber: function randomNumber() {
 			return Math.floor(Math.random() * 9) + 1;
@@ -624,6 +637,10 @@
 
 			if (this.state.redraws === 0 && !this.possibleSolution()) {
 				this.setState({ doneStatus: 'You lose. Game over' });
+			}
+
+			if (this.state.score > this.state.highScore) {
+				this.setState({ highScore: this.state.score });
 			}
 		},
 		selectNumber: function selectNumber(clickedNumber) {
@@ -681,6 +698,7 @@
 			var redraws = this.state.redraws;
 			var doneStatus = this.state.doneStatus;
 			var score = this.state.score;
+			var highScore = this.state.highScore;
 			var buttonFrame;
 
 			if (doneStatus) {
@@ -712,7 +730,7 @@
 				React.createElement(
 					'div',
 					{ className: "clearfix" },
-					React.createElement(ScoreBoard, { score: score }),
+					React.createElement(ScoreBoard, { score: score, highScore: highScore }),
 					React.createElement(TopScores, null)
 				)
 			);
@@ -926,12 +944,22 @@
 					React.createElement(
 						"h3",
 						null,
-						"Your Highest Score"
+						"Score"
 					),
 					React.createElement(
 						"h4",
 						null,
 						this.props.score
+					),
+					React.createElement(
+						"h3",
+						null,
+						"Your High Score"
+					),
+					React.createElement(
+						"h4",
+						null,
+						this.props.highScore
 					)
 				)
 			);
