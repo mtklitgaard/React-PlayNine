@@ -22,20 +22,29 @@ var Game = React.createClass({
 			usedNumbers: [],
 			redraws: 5,
 			correct: null,
-			doneStatus: null,
+			doneText: null,
+			winGame: false,
 			score: 0,
 			highScore: 0 };
 	},
 	getResetState: function() {
 		var highScore = this.state.highScore;
+		var winGame = this.state.winGame;
+		var score = this.state.score;
+
+		if(!winGame) {
+			score = 0;
+		}
+
 		return {
 			numberOfStars: this.randomNumber(),
 			selectedNumbers: [],
 			usedNumbers: [],
 			redraws: 5,
 			correct: null,
-			doneStatus: null,
-			score: 0,
+			doneText: null,
+			winGame: null,
+			score: score,
 			highScore: highScore};
 	},
 	resetGame: function() {
@@ -57,17 +66,17 @@ var Game = React.createClass({
 
 		return PossibleCominationSum(possibleNumbers, numberOfStars);
 	},	
-	updateDoneStatus: function() {
+	updatewinGame: function() {
 		if(this.state.usedNumbers.length === 9) {
-			this.setState({	doneStatus: 'You win!'});
+			this.setState({	doneText: 'You win!', winGame: true});
 			return
 		}
 
 		if(this.state.redraws === 0 && !this.possibleSolution()){
-			this.setState({doneStatus: 'You lose. Game over'});
+			this.setState({doneText: 'You lose. Game over', winGame: false});
 		}
 
-		if(this.state.score > this.state.highScore) {
+		if(this.state.score >= this.state.highScore) {
 			this.setState({highScore: this.state.score});
 		}
 
@@ -104,7 +113,7 @@ var Game = React.createClass({
 				correct: null,
 				redraws: this.state.redraws - 1
 			}, function() {
-				this.updateDoneStatus();
+				this.updatewinGame();
 			});
 		}
 	},
@@ -117,7 +126,7 @@ var Game = React.createClass({
 			numberOfStars: this.randomNumber(),
 			score: this.state.score + 10
 		}, function() {
-			this.updateDoneStatus();
+			this.updatewinGame();
 		});
 	},
 	render: function () {
@@ -126,14 +135,16 @@ var Game = React.createClass({
 		var numberOfStars = this.state.numberOfStars;
 		var correct = this.state.correct;
 		var redraws = this.state.redraws;
-		var doneStatus = this.state.doneStatus;
+		var doneText = this.state.doneText;
+		var winGame = this.state.winGame;
 		var score = this.state.score;
 		var highScore = this.state.highScore;
 		var buttonFrame;
 
-		if(doneStatus) {
-			buttonFrame = <DoneFrame doneStatus={doneStatus} resetGame={this.resetGame}/>
-		} else {
+		if(doneText) {
+			buttonFrame = <DoneFrame doneText={doneText} resetGame={this.resetGame}/>
+		}
+		else {
 			buttonFrame = <NumbersFrame selectedNumbers={selectedNumbers} selectNumber={this.selectNumber} usedNumbers={usedNumbers}/>
 		}
 
